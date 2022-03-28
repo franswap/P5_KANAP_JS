@@ -1,43 +1,46 @@
 let canapData = [];
 
-
-const fetchCanap = async ()=> {
-    await fetch("http://localhost:3000/api/products")
+const fetchCanap = async () => {
+  await fetch("http://localhost:3000/api/products")
     .then((res) => res.json())
     .then((promise) => {
-        canapData = promise;
-        console.log(canapData);
+      canapData = promise;
+      console.log(canapData);
     });
-}; 
+};
 
 const canapDisplay = async () => {
-    await fetchCanap();
+  await fetchCanap();
 
-    document.getElementById("items").innerHTML = canapData.map((products) =>
-    `<div id= "card${products._id}" class="article-canap">
+  document.getElementById("items").innerHTML = canapData
+    .map(
+      (products) =>
+        `<div id= "${products._id}" class="article-canap">
         <a>
-            <article class="items">
+            <article>
                 <img src="${products.imageUrl}" alt="canapé ${products.name}" />
-                <h3>${products.name.toUpperCase()}<h3>
-                <p>${products.description} Euro<p>
+                <h3>${products.name.toUpperCase()}</h3>
+                <p>${products.description}</p>
             </article>
         </a>
     </div>`
-    ) 
+    )
     // On enleve les virgules.
     .join("");
 
-    let articles = document.querySelectorAll(".article-canap")
-    console.log(articles);
+  // On crée une variable pour stoker les id de nos produits dans une node liste
+  let articles = document.querySelectorAll(".article-canap");
+  console.log(articles);
 
-    articles.forEach((article) =>
-        article.addEventListener("click", () => {
-        console.log(article);
+  // On créé une boucle qui va nous permettre de faire le tour de la node liste
+  articles.forEach((canap) =>
+    // Renvoie l'id du canap sur lequel on a cliqué au clique.
+    canap.addEventListener("click", () => {
+      console.log(canap);
 
-        window.location = `product.html?${article.id}`
-    }),
-    );
+      window.location = `product.html?${canap.id}`;
+    })
+  );
 };
-
 
 canapDisplay();
