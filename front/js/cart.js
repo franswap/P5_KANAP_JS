@@ -8,6 +8,8 @@ let ajoutPanier = JSON.parse(localStorage.getItem("canapé"));
 
 console.log(ajoutPanier);
 
+let someProduct = [];
+
 const fichePanier = async () => {
   if (ajoutPanier) {
     // si le panier contient un element on va lui demander de l'afficher
@@ -23,7 +25,7 @@ const fichePanier = async () => {
                     <div class="cart__item__content__description">
                         <h2>${canapé.name}</h2>
                         <p>${canapé.couleur}</p>
-                        <p>${canapé.price} €</p>
+                        <p class="price">${canapé.price} €</p>
                     </div>
                 <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
@@ -42,6 +44,93 @@ const fichePanier = async () => {
 };
 
 fichePanier();
+
+// PARTIE SUPPRESSION D'ITEM DANS NOTRE PANIER
+
+//On va creer une fonction qui va recuperer nos données de panier 
+const supprimerItemPanier = async (fichePanier) => {
+  await fichePanier;
+
+// On selectionne notre champs supprimer dans notre page
+  let supprimerProduit = document.querySelectorAll(".deleteItem");
+  console.log(supprimerProduit);
+
+
+  for (let y = 0; 1 < supprimerProduit.lenght; y++)
+  supprimerProduit[y].addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // On veut supprimer le produit en passant par son identite: son id
+    let supprID = ajoutPanier[y]._id;
+    console.log(supprID);
+
+    // On va utiliser la methode filter pour supprimer notre élément
+    ajoutPanier = ajoutPanier.filter( el => el._id !== supprID)
+
+    // Push dans le localstorage
+    localStorage.setItem("canapé",JSON.stringify(ajoutPanier))
+
+    // On indique que l'objet a été suppr 
+    alert(`vous avez supprimé le ${canapé.name}`)
+
+    // On raffrechit la page
+    window.location.href = "panier.html";
+    })
+}
+
+supprimerItemPanier ();
+
+
+// PARTIE SOMME QUANTITE DE NOTRE PANIER
+
+  // On va stocker nos pris dans un array
+  let totalQuantite = [];
+
+  // On va chercher nos prix present dans le panier
+  for (let m = 0; m < ajoutPanier.length; m++) {
+    let produitQuantite = ajoutPanier[m].quantite;
+
+    // On push nos pris dans le tableau
+    totalQuantite.push(produitQuantite)
+
+    console.log(totalQuantite);
+  }
+
+    // On va utiliser la methode reduce qui va nous permettre de sommer nos prix
+     const reduce = (accumulator, currentValue) => accumulator + currentValue;
+     const quantiteTotal = totalQuantite.reduce(reduce, 0);
+     console.log(quantiteTotal);
+
+     // Il nous reste plus qu'a afficher cette somme dans notre html
+     const quantiteHtml = document.querySelector("#totalQuantity").innerHTML =
+     `<span>${quantiteTotal}</span>`
+
+
+// PARTIE SOMME PRIX DE NOTRE PANIER
+
+
+  // On va stocker nos pris dans un array
+  let totalPrice = [];
+
+  // On va chercher nos prix present dans le panier
+  for (let m = 0; m < ajoutPanier.length; m++) {
+    let produitPrix = ajoutPanier[m].price;
+
+    // On push nos pris dans le tableau
+    totalPrice.push(produitPrix)
+
+    console.log(totalPrice);
+  }
+
+    // On va utiliser la methode reduce qui va nous permettre de sommer nos prix
+     const reducer = (accumulator, currentValue) => accumulator + currentValue;
+     const prixTotal = totalPrice.reduce(reducer, 0);
+     console.log(prixTotal);
+
+     // Il nous reste plus qu'a afficher cette somme dans notre html
+     const prixHtml = document.querySelector("#totalPrice").innerHTML =
+     `<span>${prixTotal}</span>`
+
 
 // PARTIE FORMULAIRE
 
@@ -175,13 +264,13 @@ function postForm() {
     let mailData = document.getElementById("email");
 
     // Dans le local storage, on va creer un tableau pour stocker les données qu'on a receptionnée
-    let idProducts = [];
+    let produitCommande = [];
     for (let i = 0; i < produitLocalStorage.length; i++) {
-      idProducts.push(produitLocalStorage[i].idProduit);
+      produitCommande.push(produitLocalStorage[i].idProduit);
     }
-    console.log(idProducts);
+    console.log(produitCommande);
 
-    const order = {
+    const commande = {
       contact: {
         prenomData: prenomChamps.value,
         nomData: nomChamps.value,
@@ -189,18 +278,19 @@ function postForm() {
         villeData: villeChamps.value,
         mailData: emailChamp.value,
       },
-      products: idProducts,
+      products: produitCommande
     };
 
+    // On va maintenant envoyer notre requete au back
+
+    // On cree une requete POST
     const options = {
       method: "POST",
-      body: JSON.stringify(order),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      body: JSON.stringify(commande),
+      headers: {"Content-Type": "application/json"},
     };
 
+    // On envoie la requete et on change de page avec un localstorage clear pour passer une nouvelle commande.
     fetch("http://localhost:3000/api/products/order", options)
       .then((response) => response.json())
       .then((commandeData) => {
@@ -215,4 +305,5 @@ function postForm() {
       });
   });
 }
+
 postForm();

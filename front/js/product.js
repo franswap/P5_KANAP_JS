@@ -7,6 +7,8 @@ console.log(idCanap); // On regarde bien qu'on ne recupere que l'id dans la cons
 
 let canap = []; // On va stoker notre élément dans un tableau
 
+const quantity = document.querySelector("#quantity");
+
 const fetchCanap = async () => {
   await fetch(`http://localhost:3000/api/products/${idCanap}`) // On va injecter l'URL du canapé
     .then((res) => res.json())
@@ -64,6 +66,7 @@ ficheCanap();
 const ajoutPanier = () => {
   let ajouter = document.querySelector("#addToCart");
   ajouter.addEventListener("click", () => {
+    if (quantity.value > 0 && quantity.value < 100) {
     // On créé une variable pour recup les data du local storage et pour mettre nos futurs data
     let canapStorage = JSON.parse(localStorage.getItem("canapé"));
     // On va recup la couleur choisi par l'utilisateur
@@ -74,7 +77,7 @@ const ajoutPanier = () => {
     const colorCanap = Object.assign({}, canap, {
       // On cree un objet qui va contenir:
       couleur: `${option.value}`, // le choix de la couleur de notre canap
-      quantite: 1, // sa quantité
+      quantite: parseFloat(document.querySelector("#quantity").value), // sa quantité
     });
     console.log(colorCanap);
 
@@ -91,7 +94,6 @@ const ajoutPanier = () => {
     else if (canapStorage != null) {
       // On va faire une boucle qui compare larticle quon va ajouter ajouter (type et couleur)
       for (i = 0; i < canapStorage.length; i++) {
-        console.log("test");
         if (
           canapStorage[i]._id == canap._id &&
           canapStorage[i].couleur == colors.value
@@ -122,6 +124,10 @@ const ajoutPanier = () => {
         }
       }
     }
-  });
+  } else {
+    console.log("La quantité doit être comprise entre 1 et 99.");
+  }
+});
   return (canapStorage = JSON.parse(localStorage.getItem("canapé")));
+
 };
