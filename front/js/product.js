@@ -100,7 +100,7 @@ const ajoutPanier = () => {
         ) {
           // Si les deux articles sont similaires, on ajoute la quantité souhaité en plus au panier
           return (
-            canapStorage[i].quantite++,
+            canapStorage[i].quantite= canapStorage[i].quantite + parseFloat(document.querySelector("#quantity").value),
             console.log("L'article a bien été ajouté au panier"),
             localStorage.setItem("canapé", JSON.stringify(canapStorage)),
             (canapStorage = JSON.parse(localStorage.getItem("canapé")))
