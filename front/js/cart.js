@@ -118,7 +118,7 @@ supprimerItemPanier ();
     let quantitePrix = ajoutPanier[m].quantite;
 
     let prixCoeff = produitPrix * quantitePrix
-    
+
     // On push nos pris dans le tableau
     totalPrice.push(prixCoeff)
 
@@ -198,7 +198,7 @@ function formulaireContent() {
     if (regExpChamps.test(prenomChamps.value)) {
       notifPrenom.innerHTML = "";
     } else {
-      notifPrenom.innerHTML = "Quel est votre prenom ?"; //On renvoie l'utilisateur sur le champs qu'il n'a pas rempli
+      notifPrenom.innerHTML = "Quel est votre prenom ?"; //On renvoie l'utilisateur sur le champs qu'il a mal rempli
     }
   };
 
@@ -209,7 +209,7 @@ function formulaireContent() {
     if (regExpChamps.test(nomChamps.value)) {
       notifNom.innerHTML = "";
     } else {
-      notifNom.innerHTML = "Quel est votre nom ?"; //On renvoie l'utilisateur sur le champs qu'il n'a pas rempli
+      notifNom.innerHTML = "Quel est votre nom ?"; //On renvoie l'utilisateur sur le champs qu'il a mal rempli
     }
   };
 
@@ -220,7 +220,7 @@ function formulaireContent() {
     if (regExpAdresse.test(adresseChamps.value)) {
       notifAdresse.innerHTML = "";
     } else {
-      notifAdresse.innerHTML = "Quelle est votre adresse ?"; //On renvoie l'utilisateur sur le champs qu'il n'a pas rempli
+      notifAdresse.innerHTML = "Quelle est votre adresse ?"; //On renvoie l'utilisateur sur le champs qu'il a mal rempli
     }
   };
 
@@ -231,7 +231,7 @@ function formulaireContent() {
     if (regExpChamps.test(villeChamps.value)) {
       notifVille.innerHTML = "";
     } else {
-      notifVille.innerHTML = "Dans quelle ville habitez-vous ?"; //On renvoie l'utilisateur sur le champs qu'il n'a pas rempli
+      notifVille.innerHTML = "Dans quelle ville habitez-vous ?"; //On renvoie l'utilisateur sur le champs qu'il a mal rempli
     }
   };
 
@@ -242,7 +242,7 @@ function formulaireContent() {
     if (regExpEmail.test(emailChamps.value)) {
       notifEmail.innerHTML = "";
     } else {
-      notifEmail.innerHTML = "Quelle est votre adresse email ? (promis, pas de SPAM !)"; //On renvoie l'utilisateur sur le champs qu'il n'a pas rempli
+      notifEmail.innerHTML = "Quelle est votre adresse email ? (promis, pas de SPAM !)"; //On renvoie l'utilisateur sur le champs qu'il a mal rempli
     }
   };
 }
