@@ -18,7 +18,7 @@ const fetchCanap = async () => {
     });
 };
 
-// on va chercher nos données de maniere asynchrone
+// on va chercher nos données recuperé avec fetch de maniere asynchrone pour les afficher
 const ficheCanap = async () => {
   await fetchCanap();
 

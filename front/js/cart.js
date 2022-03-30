@@ -115,9 +115,12 @@ supprimerItemPanier ();
   // On va chercher nos prix present dans le panier
   for (let m = 0; m < ajoutPanier.length; m++) {
     let produitPrix = ajoutPanier[m].price;
+    let quantitePrix = ajoutPanier[m].quantite;
 
+    let prixCoeff = produitPrix * quantitePrix
+    
     // On push nos pris dans le tableau
-    totalPrice.push(produitPrix)
+    totalPrice.push(prixCoeff)
 
     console.log(totalPrice);
   }

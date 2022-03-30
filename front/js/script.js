@@ -9,7 +9,7 @@ const fetchCanap = async () => {
     });
 };
 
-const canapDisplay = async () => {
+const canapAffichage = async () => {
   await fetchCanap();
 
   document.getElementById("items").innerHTML = canapData
@@ -43,4 +43,4 @@ const canapDisplay = async () => {
   );
 };
 
-canapDisplay();
+canapAffichage();
