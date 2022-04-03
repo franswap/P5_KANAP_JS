@@ -4,7 +4,6 @@ function main(){
     numCommande.innerText = localStorage.getItem("orderId");
     console.log(localStorage.getItem("orderId"))
 
-    // On remet le localstorage vide pour la prochaine commande
     localStorage.clear();
 }
 
