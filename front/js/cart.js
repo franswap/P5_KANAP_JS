@@ -3,6 +3,7 @@ console.log(ajoutPanier);
 
 let someProduct = [];
 
+
 const fichePanier = async () => {
   if (ajoutPanier) {
     await ajoutPanier;
@@ -38,7 +39,7 @@ const fichePanier = async () => {
 fichePanier();
 
 
-const supprimerItemPanier = async (fichePanier) => {
+const deleteItemById = async (fichePanier) => {
   await fichePanier;
 
   let supprimerProduit = document.querySelectorAll(".deleteItem");
@@ -49,10 +50,7 @@ const supprimerItemPanier = async (fichePanier) => {
   supprimerProduit[y].addEventListener("click", (e) => {
     e.preventDefault()
 
-    let supprID = ajoutPanier[y]._id;
-    console.log(supprID);
-
-    ajoutPanier = ajoutPanier.filter( el => el._id !== supprID)
+    ajoutPanier = ajoutPanier.filter( el => el._id !== supprimerProduit)
 
     localStorage.setItem("canapé",JSON.stringify(ajoutPanier))
 
@@ -62,7 +60,7 @@ const supprimerItemPanier = async (fichePanier) => {
     })
 }
 
-supprimerItemPanier ();
+deleteItemById ();
 
   let totalQuantite = [];
 
