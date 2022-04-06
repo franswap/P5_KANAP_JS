@@ -181,7 +181,7 @@ function formulaireContent() {
 formulaireContent();
 
 function postForm() {
-    const form_commander = document.getElementById("order_form");
+    const form_commander = document.querySelector(".cart__order__form");
 
     form_commander.addEventListener("submit", (evt) => {
         evt.preventDefault();
@@ -218,7 +218,7 @@ function postForm() {
                     localStorage.clear();
                     localStorage.setItem("orderId", commandeData.orderId);
 
-                    // document.location.href = "confirmation.html";
+                    document.location.href = "confirmation.html";
                 })
                 .catch((error) => {
                     alert("Problème avec fetch : " + error.message);
