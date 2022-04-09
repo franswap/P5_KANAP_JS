@@ -9,12 +9,12 @@ console.log(villeData)
 let ajoutPanier = JSON.parse(localStorage.getItem("canapé")) ?? [];
 console.log(ajoutPanier);
 
-const deleteItemById = (id) => {
-    const basket = ajoutPanier.filter(canap => canap._id !== id);
+const deleteItem = (id, couleur) => {
+    const basket = ajoutPanier.filter(canap => canap._id !== id &&
+        canap.couleur == couleur);
     !basket.length ? localStorage.removeItem("canapé") : localStorage.setItem("canapé", JSON.stringify(basket));
 
     window.location.href = "cart.html";
-
 }
 
 
@@ -29,7 +29,7 @@ const fichePanier = (panier = []) => {
                 <div class="cart__item__content">
                     <div class="cart__item__content__description">
                         <h2>${name}</h2>
-                        <p>${couleur}</p>
+                        <p id="${couleur}" onclick="deleteItem(couleur)">${couleur}</p>
                         <p class="price">${price} €</p>
                     </div>
                 <div class="cart__item__content__settings">
@@ -38,7 +38,7 @@ const fichePanier = (panier = []) => {
                         <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${quantite}">
                 </div>
                 <div class="cart__item__content__settings__delete">
-                  <p id="${_id}" class="deleteItem" onclick="deleteItemById(id)">Supprimer</p>
+                  <p id="${_id}" class="deleteItem" onclick="deleteItem(id)">Supprimer</p>
                 </div>
                 </div>
             </div>
@@ -52,6 +52,7 @@ const fichePanier = (panier = []) => {
 if (ajoutPanier) {
     fichePanier(ajoutPanier);
 }
+
 
 let totalQuantite = [];
 
@@ -193,8 +194,8 @@ function postForm() {
 
             const commande = {
                 contact: {
-                    firstname: prenomData.value,
-                    lastname: nomData.value,
+                    firstName: prenomData.value,
+                    lastName: nomData.value,
                     address: adresseData.value,
                     city: villeData.value,
                     email: mailData.value
