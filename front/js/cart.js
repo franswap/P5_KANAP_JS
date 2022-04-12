@@ -9,9 +9,9 @@ console.log(villeData)
 let ajoutPanier = JSON.parse(localStorage.getItem("canapé")) ?? [];
 console.log(ajoutPanier);
 
-const deleteItem = (id, _couleur) => {
+const deleteItem = (id, couleur) => {
     const basket = ajoutPanier.filter(canap => canap._id !== id &&
-        canap.couleur !== _couleur);
+        canap.couleur !== couleur);
     !basket.length ? localStorage.removeItem("canapé") : localStorage.setItem("canapé", JSON.stringify(basket));
 
     window.location.href = "cart.html";
@@ -29,7 +29,7 @@ const fichePanier = (panier = []) => {
                 <div class="cart__item__content">
                     <div class="cart__item__content__description">
                         <h2>${name}</h2>
-                        <p id="${couleur}" onclick="deleteItem(_couleur)">${couleur}</p>
+                        <p id="${couleur}" onclick="deleteItem(couleur)">${couleur}</p>
                         <p class="price">${price} €</p>
                     </div>
                 <div class="cart__item__content__settings">
@@ -55,9 +55,9 @@ if (ajoutPanier) {
 
 const itemQuantity = document.querySelector(".itemQuantity");
 
-itemQuantity.addEventListener ("change", (event) => {
-    const quantite = document.querySelector('.itemQuantity');
+itemQuantity.addEventListener ("input", (event) => {
     quantite.value = event.target.value;
+    localStorage.setItem("canapé", JSON.stringify(basket));
 });
 
     console.log(itemQuantity);
