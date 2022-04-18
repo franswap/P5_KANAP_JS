@@ -67,8 +67,6 @@ const changeQuantityInCart = (event, id, color) => {
     (ajoutPanier = JSON.parse(localStorage.getItem("canapé")))
 
 
-
-
 let totalQuantite = [];
 
 for (let m = 0; m < ajoutPanier.length; m++) {
