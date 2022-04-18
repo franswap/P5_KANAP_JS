@@ -10,9 +10,12 @@ let ajoutPanier = JSON.parse(localStorage.getItem("canapé")) ?? [];
 console.log(ajoutPanier);
 
 const deleteItem = (_id, couleur) => {
-    const basket = ajoutPanier.filter(canap => canap._id !== _id &&
-         canap.couleur !== couleur);
-    !basket.length ? localStorage.removeItem("canapé") : localStorage.setItem("canapé", JSON.stringify(basket));
+    const findIndexInCart = ajoutPanier.findIndex(
+    canap => canap._id === _id && canap.couleur === couleur
+    );
+    ajoutPanier.splice(findIndexInCart, 1)
+
+    localStorage.setItem("canapé", JSON.stringify(ajoutPanier));
 
     window.location.href = "cart.html";
     console.log(couleur);
@@ -36,7 +39,7 @@ const fichePanier = (panier = []) => {
                 <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
                     <p>Qté : </p>
-                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${quantite}">
+                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${quantite}" onchange="changeQuantityInCart(event, '${_id}', '${couleur}')">
                 </div>
                 <div class="cart__item__content__settings__delete">
                   <p id="${_id}" class="deleteItem" onclick="deleteItem('${_id}', '${couleur}')">Supprimer</p>
@@ -54,24 +57,16 @@ if (ajoutPanier) {
     fichePanier(ajoutPanier);
 }
 
-const itemQuantity = document.querySelector('[name="itemQuantity"]');
+const changeQuantityInCart = (event, id, color) => {
+    const findTheIndexToChange = ajoutPanier.findIndex(
+    canap => canap._id === id && canap.couleur === color
+    );
+    ajoutPanier[findTheIndexToChange].quantite = parseInt(event.target.value)
+    
+    localStorage.setItem("canapé", JSON.stringify(ajoutPanier)),
+    (ajoutPanier = JSON.parse(localStorage.getItem("canapé")))
 
-console.log(itemQuantity.value);
-itemQuantity.addEventListener ("input", (event) => {
-    for (i = 0; i < ajoutPanier.length; i++) {
-        if (
-            ajoutPanier[i]._id == _id &&
-            ajoutPanier[i].couleur == couleur
-        ) {
-          return (
-            ajoutPanier[i].quantite= parseFloat(itemQuantity.value),
-            console.log("L'article a bien été ajouté au panier"),
-            localStorage.setItem("canapé", JSON.stringify(ajoutPanier)),
-            (ajoutPanier = JSON.parse(localStorage.getItem("canapé")))
-          );
-    }
-};
-});
+
 
 
 let totalQuantite = [];
@@ -111,6 +106,7 @@ console.log(prixTotal);
 const prixHtml = document.querySelector("#totalPrice").innerHTML =
     `<span>${prixTotal}</span>`
 
+};
 
 function formulaireContent() {
 
