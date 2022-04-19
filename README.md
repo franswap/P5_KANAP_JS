@@ -1,4 +1,6 @@
-# Kanap #
+# PROJET 5 OPENCLASSROOM - Construisez un site e-commerce en JavaScript #
+
+# -> INSTRUCTION ET PREREQUIS POUR LIRE LE PROJET #
 
 This is the front end and back end server for Project 5 of the Web Developer path.
 
@@ -13,3 +15,10 @@ can then run the server with `node server`.
 The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
+
+# COMPETENCES DU PROJET #
+
+      - Interagir avec un web service avec JavaScript
+      - Gérer des événements JavaScript
+      - Valider des données issues de sources externes
+      - Créer un plan de test pour une application
