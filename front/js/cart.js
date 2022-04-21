@@ -53,8 +53,49 @@ const fichePanier = (panier = []) => {
     );
 };
 
+const cartComputed = () => {
+    let totalQuantite = [];
+    
+    for (let m = 0; m < ajoutPanier.length; m++) {
+        let produitQuantite = ajoutPanier[m].quantite;
+    
+        totalQuantite.push(produitQuantite)
+    
+        console.log(totalQuantite);
+    }
+    
+    const reduce = (accumulator, currentValue) => accumulator + currentValue;
+    const quantiteTotal = totalQuantite.reduce(reduce, 0);
+    console.log(quantiteTotal);
+    
+    const quantiteHtml = document.querySelector("#totalQuantity").innerHTML =
+        `<span>${quantiteTotal}</span>`
+    
+    let totalPrice = [];
+    
+    for (let m = 0; m < ajoutPanier.length; m++) {
+        let produitPrix = ajoutPanier[m].price;
+        let quantitePrix = ajoutPanier[m].quantite;
+    
+        let prixCoeff = produitPrix * quantitePrix
+    
+        totalPrice.push(prixCoeff)
+    
+        console.log(totalPrice);
+    }
+    
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const prixTotal = totalPrice.reduce(reducer, 0);
+    console.log(prixTotal);
+    
+    const prixHtml = document.querySelector("#totalPrice").innerHTML =
+        `<span>${prixTotal}</span>`
+    
+    };
+
 if (ajoutPanier) {
     fichePanier(ajoutPanier);
+    cartComputed()
 }
 
 const changeQuantityInCart = (event, id, color) => {
@@ -66,45 +107,8 @@ const changeQuantityInCart = (event, id, color) => {
     localStorage.setItem("canapé", JSON.stringify(ajoutPanier)),
     (ajoutPanier = JSON.parse(localStorage.getItem("canapé")))
 
-
-let totalQuantite = [];
-
-for (let m = 0; m < ajoutPanier.length; m++) {
-    let produitQuantite = ajoutPanier[m].quantite;
-
-    totalQuantite.push(produitQuantite)
-
-    console.log(totalQuantite);
-}
-
-const reduce = (accumulator, currentValue) => accumulator + currentValue;
-const quantiteTotal = totalQuantite.reduce(reduce, 0);
-console.log(quantiteTotal);
-
-const quantiteHtml = document.querySelector("#totalQuantity").innerHTML =
-    `<span>${quantiteTotal}</span>`
-
-let totalPrice = [];
-
-for (let m = 0; m < ajoutPanier.length; m++) {
-    let produitPrix = ajoutPanier[m].price;
-    let quantitePrix = ajoutPanier[m].quantite;
-
-    let prixCoeff = produitPrix * quantitePrix
-
-    totalPrice.push(prixCoeff)
-
-    console.log(totalPrice);
-}
-
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
-const prixTotal = totalPrice.reduce(reducer, 0);
-console.log(prixTotal);
-
-const prixHtml = document.querySelector("#totalPrice").innerHTML =
-    `<span>${prixTotal}</span>`
-
-};
+    cartComputed()
+    };
 
 function formulaireContent() {
 
