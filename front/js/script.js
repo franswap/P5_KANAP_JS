@@ -16,15 +16,13 @@ const canapAffichage = async () => {
   document.getElementById("items").innerHTML = canapData
     .map(
       (products) =>
-        `<div id= "${products._id}" class="article-canap">
-          <a>
-              <article>
+        `<a>
+              <article id= "${products._id}" class="article-canap">
                   <img src="${products.imageUrl}" alt="canapé ${products.name}" />
                   <h3>${products.name.toUpperCase()}</h3>
                   <p>${products.description}</p>
               </article>
-          </a>
-        </div>`
+          </a>`
     )
     .join("");
 
